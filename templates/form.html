@@ -1,0 +1,464 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+
+        <style>body {
+color: #000;
+overflow-x: hidden;
+height: 100%;
+background: linear-gradient(-45deg, #2196F3 50%, #EEEEEE 50%);
+background-repeat: no-repeat
+}
+.card {
+background-color: #FFF;
+border-radius: 25px;
+box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+padding: 40px;
+z-index: 0
+}
+.heading {
+font-weight: normal
+}
+.desc {
+font-size: 14px
+}
+#progressbar {
+margin-bottom: 30px;
+overflow: hidden;
+color: lightgrey;
+padding-left: 0px
+}
+#progressbar .active {
+color: #673AB7
+}
+#progressbar li {
+list-style-type: none;
+font-size: 15px;
+width: 25%;
+float: left;
+position: relative;
+font-weight: 400
+}
+#progressbar .step0:before {
+content: ""
+}
+#progressbar li:before {
+width: 40px;
+height: 40px;
+line-height: 45px;
+display: block;
+font-size: 20px;
+background: #E0E0E0;
+border-radius: 50%;
+margin: auto;
+padding: 2px
+}
+#progressbar li:after {
+content: '';
+width: 100%;
+height: 10px;
+background: #E0E0E0;
+position: absolute;
+left: 0;
+top: 17px;
+z-index: -1
+}
+#progressbar li:last-child:after {
+border-top-right-radius: 10px;
+border-bottom-right-radius: 10px
+}
+#progressbar li:first-child:after {
+border-top-left-radius: 10px;
+border-bottom-left-radius: 10px
+}
+#progressbar li.active:before,
+#progressbar li.active:after {
+background: #F9A825
+}
+.sub-heading {
+font-weight: 500
+}
+.yellow-text {
+color: #F9A825
+}
+
+fieldset.show {
+display: block
+}
+fieldset {
+display: none
+}
+.radio {
+display: inline-block;
+border-radius: 0;
+box-sizing: border-box;
+cursor: pointer;
+color: #BDBDBD;
+font-weight: 500;
+-webkit-filter: grayscale(100%);
+-moz-filter: grayscale(100%);
+-o-filter: grayscale(100%);
+-ms-filter: grayscale(100%);
+filter: grayscale(100%)
+}
+.radio:hover {
+box-shadow: 1px 1px 2px 2px rgba(227, 155, 6, 0.8)
+}
+
+/* CHECKED STYLES */
+[type=radio]:checked + img {
+border: 3px solid #F9A825;
+color: #e38d02 !important;
+-webkit-filter: grayscale(0%);
+-moz-filter: grayscale(0%);
+-o-filter: grayscale(0%);
+-ms-filter: grayscale(0%);
+filter: grayscale(0%)
+}
+
+.card-block {
+border: 1px solid #F9A825;
+width: 45%;
+margin: 2.5%;
+padding: 20px 25px 15px 25px
+}
+@media screen and (max-width: 768px) {
+.card-block {
+padding: 20px 20px 0px 20px;
+height: 250px
+}
+}
+.icon {
+width: 100px;
+height: 100px
+}
+.image-icon {
+width: 85px;
+height: 100px;
+margin-left: auto;
+margin-right: auto;
+margin-bottom: 20px
+}
+select,
+input,
+textarea,
+button {
+padding: 8px 15px 8px 15px;
+border-radius: 0px;
+margin-bottom: 25px;
+margin-top: 2px;
+width: 100%;
+box-sizing: border-box;
+color: #2C3E50;
+background-color: #ECEFF1;
+border: 1px solid #ccc;
+font-size: 16px;
+letter-spacing: 1px
+}
+select:focus,
+input:focus,
+textarea:focus {
+-moz-box-shadow: none !important;
+-webkit-box-shadow: none !important;
+box-shadow: none !important;
+border: 1px solid skyblue !important;
+outline-width: 0
+}
+button:focus {
+-moz-box-shadow: none !important;
+-webkit-box-shadow: none !important;
+box-shadow: none !important;
+outline-width: 0
+}
+textarea {
+height: 100px
+}
+button {
+width: 120px;
+letter-spacing: 2px
+}
+.fit-image {
+width: 100%;
+object-fit: cover
+}
+.btn-block {
+border-radius: 5px;
+height: 50px;
+font-weight: 500;
+cursor: pointer
+}
+.fa-long-arrow-right {
+float: right;
+margin-top: 4px
+}
+.fa-long-arrow-left {
+float: left;
+margin-top: 4px
+
+#seguro1{
+visibility: hidden;
+}
+
+}</style>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+    <form method="post" id="myform"></form>
+    <div class="container-fluid px-1 py-5 mx-auto">
+    <div class="row d-flex justify-content-center">
+    <div class="col-xl-5 col-lg-6 col-md-7">
+    <div class="card b-0">
+        <h3 class="heading">Tarifario de seguro</h3>
+        <p class="desc">LLene este formulario para estimar el precio de su seguro</p>
+    <ul id="progressbar" class="text-center">
+<li class="active step0" id="step1"></li>
+<li class="step0" id="step2"></li>
+<li class="step0" id="step3"></li>
+<li class="step0" id="step4"></li>
+</ul>
+<fieldset class="show" form="myform">
+<div class="form-card">
+<h5 class="sub-heading">Seleccione el tipo de seguro</h5>
+<div class="row px-1 radio-group">
+
+<label class="card-block text-center radio selected" id="cuadro1"> <input form="myform" type="radio" style="opacity:0;" class="yuan" name="tipo_seguro" id="seguro1" value="Sobrevivencia"> <img class="icon icon1" src="../imgs/Vida.png">
+<p class="sub-desc" style="color:#000000">Seguro de sobrevivencia</p></label>
+
+
+<label class="card-block text-center radio selected" id="cuadro2"> <input form="myform" type="radio" style="opacity:0;" class="yuan" name="tipo_seguro" id="seguro2" value="Vida"> <img class="icon icon1" src="../imgs/Vida1.png">
+<p class="sub-desc" style="color:#000000">Seguro de vida</p></label>
+
+
+</div> <button id="next1" class="btn-block btn-primary mt-3 mb-1 next">SIGUIENTE<span class="fa fa-long-arrow-right"></span></button>
+</div>
+</fieldset>
+<fieldset form="myform">
+<div class="form-card">
+<h5 class="sub-heading mb-4">Información Personal</h5><label class="text-danger mb-3">* Requerido</label>
+<div class="form-group"> <label class="form-control-label">Nombre y apellido * :</label> <input type="text" form="myform" id="fname" name="fname" placeholder="" class="form-control" onblur="validate1(1)"> </div>
+<div class="form-group"> <label class="form-control-label">Edad * :</label> <input form="myform" type="number" min="0" max="101" id="edad" name="edad" placeholder="" class="form-control" onblur="validate1(2)"> </div>
+<div class="form-group"> <label class="form-control-label">Género * : <select form="myform" name="genero" class="form-control"> <option value="masculino">Masculino</option> <option value="femenino">Femenino</option></select> </label></div>
+<div class="form-group"> <label class="form-control-label">Edad en la que se pagará la suma asegurada *:</label> <input form="myform" type="number" min="0" max="100"  id="edad_sa" name="edad_sa" title="Si la cobertura es inmediata, coloque la misma edad" class="form-control" onblur="validate1(4)"> </div>
+<div class="form-group"> <label class="form-control-label">Cantidad de años de cobertura *:</label> <input form="myform" type="number" min="1" max="100"  id="cober" name="cober" placeholder="Si desea recibir un unico pago, coloque un 1. Si desea una renta vitalicia, coloque 100" class="form-control" onblur="validate1(3)"> </div>
+<div class="form-group"> <label class="form-control-label">En el caso de seguro de vida, indique como desea recibir el pago de la SA *:</label> <select form="myform" class="form-control" name="recibir_pago" id="recibir_pago"><option value="Al final del año" selected>Al final del año</option><option value="Al final del semestre">Al final del semestre</option><option value="Al final del cuatrimestre">Al final del cuatrimestre</option><option value="Al final del trimestre">Al final del trimestre</option><option value="Al final del bimestre">Al final del bimestre</option><option value="Al final del mes">Al final del mes</option></select> </div><button id="next2" class="btn-block btn-primary mt-3 mb-1 next mt-4" onclick="validate1(0)">SIGUIENTE<span class="fa fa-long-arrow-right"></span></button> <button class="btn-block btn-secondary mt-3 mb-1 prev"><span class="fa fa-long-arrow-left"></span>ANTERIOR</button></div>
+</fieldset>
+<fieldset form="myform">
+    <div class="form-card">
+        <h5 class="sub-heading mb-4">Modalidad de pago: </h5> <label class="text-danger mb-3">* Requerido</label>
+        <div class="form-group"> <label class="form-control-label">Suma Asegurada * :</label> <input form="myform" type="text" id="suma_asegurada" name="suma_asegurada" placeholder="" class="form-control" onblur="validate2(1)"> </div>
+<div class="form-group"> <label class="form-control-label"> Solo debe llenar la información debajo en el instante que llene los detalles de la primera cobertura</label></div>
+<div class="form-group"> <label class="form-control-label"> Tasa de interés técnico (%) * :</label> <input form="myform" type="number" step="0.01" min="0" max="100" id="tasa" name="tasa" placeholder="por defecto, se tomará 4% si no se ingresa ningún valor" class="form-control"> </div>
+<div class="form-group"> <label class="form-control-label"> Crecimiento de la suma asegurada (%) * :</label> <input form="myform" type="number" min="0" max="100" id="crecimiento_sa" name="crecimiento_sa" placeholder="si desea una suma asegurada constante, coloque un 0" class="form-control"> </div>
+<div class="form-group"> <label class="form-control-label">Frecuencia de pago * :</label> <select form="myform" class="form-control" name="frecuencia" id="frecuencia"><option value="unico">Pago único</option><option value="1">Anual</option><option value="2">Semestral</option><option value="3">Cuatrimestral</option><option value="4">Trimestral</option><option value="6">Bimestral</option><option value="12">Mensual</option></select></div>
+<div class="form-group"> <label class="form-control-label">Modo de pago * :</label> <select form="myform" class="form-control" name="modopago" id="modopago"><option value="anticipado">Anticipado</option><option value="vencido">Vencido</option> </select></div>
+<div class="form-group"> <label class="form-control-label">Cantidad de años pagando * :</label> <input form="myform" type="number" min="1" placeholder="Coloque un 1, si desea hacer un unico pago" max="100" id="años_pagando" name="años_pagando" class="form-control"></div>
+<div class="form-group"> <label class="form-control-label"> Gastos de Adquisición asociados a la SA () * :</label> <input form="myform" type="number" step="0.01" min="0" max="1" id="ad_sa" name="ad_sa" placeholder="Ingresar % en decimal" class="form-control"> </div>
+<div class="form-group"> <label class="form-control-label"> Gastos de Adquisición asociados a la Prima de Tarifa () * :</label> <input form="myform" type="number" step="0.01" min="0" max="1" id="ad_pt" name="ad_pt" placeholder="Ingresar % en decimal" class="form-control"> </div>
+<div class="form-group"> <label class="form-control-label"> Gastos de Gestión asociados a la SA () * :</label> <input form="myform" type="number" step="0.01" min="0" max="1" id="ge_sa" name="ge_sa" placeholder="Ingresar % en decimal" class="form-control"> </div>
+<div class="form-group"> <label class="form-control-label"> Gastos de Gestión asociados a la Prima de Tarifa () * :</label> <input form="myform" type="number" step="0.01" min="0" max="1" id="ge_pt" name="ge_pt" placeholder="Ingresar % en decimal" class="form-control"> </div>
+<div class="form-group"> <label class="form-control-label"> Gastos de Liquidación asociados a la SA () * :</label> <input form="myform" type="number" step="0.01" min="0" max="1" id="li_sa" name="li_sa" placeholder="Ingresar % en decimal" class="form-control"> </div>
+<div class="form-group"> <label class="form-control-label"> Gastos de Liquidación asociados a la Prima de Tarifa () * :</label> <input form="myform" type="number" step="0.01" min="0" max="1" id="li_pt" name="li_pt" placeholder="Ingresar % en decimal" class="form-control"> </div>
+<div class="form-group"> <label class="form-control-label">¿Desea agregar otra cobertura?* :</label> <select form="myform" class="form-control" name="otracobertura" id="otracobertura"><option value="no">No</option><option value="si">Sí</option> </select>
+<div class="select mb-3">  </div>
+</div> <button value="SIGUIENTE" form="myform" id="next3" class="btn-block btn-primary mt-3 mb-1 next mt-4" onclick="validate2(0)">SIGUIENTE<span class="fa fa-long-arrow-right"></span></button> <button class="btn-block btn-secondary mt-3 mb-1 prev"><span class="fa fa-long-arrow-left"></span>ANTERIOR</button>
+</div>
+</fieldset>
+<fieldset>
+<div class="form-card">
+<h5 class="sub-heading mb-4">Success!</h5>
+<p class="message">Thank You for choosing our website.<br>Quotation will be sent to your Email ID and Contact Number.</p>
+<div class="check"> <img class="fit-image check-img" src="https://i.imgur.com/QH6Zd6Y.gif"> </div>
+</div>
+</fieldset>
+</div>
+</div>
+</div>
+</div> <script type="text/javascript">
+var recibirpago = document.getElementById("recibir_pago");
+var cuadro1  = document.getElementById("cuadro1");
+var cuadro2  = document.getElementById("cuadro2");
+var crecimiento  = document.getElementById("crecimiento_sa");
+
+document.getElementById('seguro2').addEventListener('click', function(e) {
+  console.log('Vamos a habilitar el input text');
+  recibirpago.disabled = false;
+  crecimiento.disabled = true;
+  cuadro1.style=""
+  cuadro2.style="border-style: solid; border: 5px solid; border-color:#F9A825 !important;"
+});
+
+document.getElementById('seguro1').addEventListener('click', function(e) {
+  console.log('Vamos a deshabilitar el input text');
+  recibirpago.disabled = true;
+  crecimiento.disabled = false;
+  cuadro2.style=""
+  cuadro1.style="border-style: solid; border: 5px solid; border-color: #F9A825 !important;"
+});
+
+
+function validate1(val) {
+v1 = document.getElementById("fname");
+v2 = document.getElementById("edad");
+v3 = document.getElementById("cober");
+v4 = document.getElementById("edad_sa");
+flag1 = true;
+flag2 = true;
+flag3 = true;
+flag4 = true;
+if(val>=1 || val==0) {
+if(v1.value == "") {
+v1.style.borderColor = "red";
+flag1 = false;
+}
+else {
+v1.style.borderColor = "green";
+flag1 = true;
+}
+}
+if(val>=2 || val==0) {
+if(v2.value == "") {
+v2.style.borderColor = "red";
+flag2 = false;
+}
+else {
+v2.style.borderColor = "green";
+flag2 = true;
+}
+}
+if(val>=3 || val==0) {
+if(v3.value == "") {
+v3.style.borderColor = "red";
+flag3 = false;
+}
+else {
+v3.style.borderColor = "green";
+flag3 = true;
+}
+}
+if(val>=4 || val==0) {
+if(v4.value == "") {
+v4.style.borderColor = "red";
+flag4 = false;
+}
+else {
+v4.style.borderColor = "green";
+flag4 = true;
+}
+}
+
+flag = flag1 && flag2 && flag3 && flag4;
+return flag;
+}
+function validate2(val) {
+v1 = document.getElementById("suma_asegurada");
+v2 = document.getElementById("crecimiento_sa");
+v3 = document.getElementById("state");
+v4 = document.getElementById("city");
+flag1 = true;
+flag2 = true;
+flag3 = true;
+flag4 = true;
+if(val>=1 || val==0) {
+if(v1.value == "") {
+v1.style.borderColor = "red";
+flag1 = false;
+}
+else {
+v1.style.borderColor = "green";
+flag1 = true;
+}
+}
+if(val>=2 || val==0) {
+if(v2.value == "") {
+v2.style.borderColor = "red";
+flag2 = false;
+}
+else {
+v2.style.borderColor = "green";
+flag2 = true;
+}
+}
+if(val>=3 || val==0) {
+if(v3.value == "") {
+v3.style.borderColor = "red";
+flag3 = false;
+}
+else {
+v3.style.borderColor = "green";
+flag3 = true;
+}
+}
+if(val>=4 || val==0) {
+if(v4.value == "") {
+v4.style.borderColor = "red";
+flag4 = false;
+}
+else {
+v4.style.borderColor = "green";
+flag4 = true;
+}
+}
+flag = flag1 && flag2 && flag3 && flag4;
+return flag;
+}
+$(document).ready(function(){
+var current_fs, next_fs, previous_fs;
+$(".next").click(function(){
+str1 = "next1";
+str2 = "next2";
+str3 = "next3";
+if(!str2.localeCompare($(this).attr('id')) && validate1(0) == true) {
+val2 = true;
+}
+else {
+val2 = false;
+}
+if(!str3.localeCompare($(this).attr('id')) && validate2(0) == true) {
+val3 = true;
+}
+else {
+val3 = false;
+}
+if(!str1.localeCompare($(this).attr('id')) || (!str2.localeCompare($(this).attr('id')) && val2 == true) || (!str3.localeCompare($(this).attr('id')) && val3 == true)) {
+current_fs = $(this).parent().parent();
+next_fs = $(this).parent().parent().next();
+$(current_fs).removeClass("show");
+$(next_fs).addClass("show");
+$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+current_fs.animate({}, {
+step: function() {
+current_fs.css({
+'display': 'none',
+'position': 'relative'
+});
+next_fs.css({
+'display': 'block'
+});
+}
+});
+}
+});
+$(".prev").click(function(){
+current_fs = $(this).parent().parent();
+previous_fs = $(this).parent().parent().prev();
+$(current_fs).removeClass("show");
+$(previous_fs).addClass("show");
+$("#progressbar li").eq($("fieldset").index(next_fs)).removeClass("active");
+current_fs.animate({}, {
+step: function() {
+current_fs.css({
+'display': 'none',
+'position': 'relative'
+});
+previous_fs.css({
+'display': 'block'
+});
+}
+});
+});
+$('.radio-group .radio').click(function(){
+$(this).toggleClass('selected');
+});
+});</script></body></html>
